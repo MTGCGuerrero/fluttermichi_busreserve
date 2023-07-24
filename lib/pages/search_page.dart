@@ -1,4 +1,5 @@
 import 'package:bus_reservation_udemy/utils/constants.dart';
+import 'package:bus_reservation_udemy/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -63,10 +64,35 @@ class _SearchPageState extends State<SearchPage> {
                     .toList(),
                 onChanged: (value) {
                   toCity = value;
-                })
+                }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: _selectedDate,
+                    child: const Text("Selected Departure Date")),
+                Text(departureDate == null
+                    ? "No date chosen"
+                    : getFormattedDate(departureDate!,
+                        pattern: 'EEE MMM dd, yyyy')),
+              ],
+            ),
           ],
         ),
       )),
     );
+  }
+
+  void _selectedDate() async {
+    final selectedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 7)));
+    if (selectedDate != null) {
+      setState(() {
+        departureDate = selectedDate;
+      });
+    }
   }
 }
