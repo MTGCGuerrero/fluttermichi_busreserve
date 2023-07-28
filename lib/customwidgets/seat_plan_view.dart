@@ -35,7 +35,7 @@ class SeatPlanView extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(8),
       width: MediaQuery.of(context).size.width * 0.80,
       decoration: BoxDecoration(
           color: Colors.grey.shade200,
@@ -53,35 +53,27 @@ class SeatPlanView extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          const Divider(
-            height: 2,
-            color: Colors.black,
-          ),
+          const Divider(height: 2, color: Colors.black,),
           Column(
             children: [
-              for (int i = 0; i < seatArrangement.length; i++)
+              for(int i = 0; i < seatArrangement.length; i++)
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (int j = 0; j < seatArrangement[i].length; j++)
+                    for(int j = 0; j < seatArrangement[i].length; j++)
                       Row(
                         children: [
                           Seat(
-                            isBooked:
-                                bookedSeatList.contains(seatArrangement[i][j]),
+                            isBooked: bookedSeatList.contains(seatArrangement[i][j]),
                             label: seatArrangement[i][j],
                             onSelect: (value) {
                               onSeatSelected(value, seatArrangement[i][j]);
                             },
                           ),
-                          if (isBusinessClass && j == 0)
-                            const SizedBox(
-                              width: 24,
-                            ),
-                          if (!isBusinessClass && j == 1)
-                            const SizedBox(
-                              width: 24,
-                            ),
+                          if(isBusinessClass && j == 0)
+                            const SizedBox(width: 24,),
+                          if(!isBusinessClass && j == 1)
+                            const SizedBox(width: 24,),
                         ],
                       ),
                   ],
@@ -116,14 +108,12 @@ class _SeatState extends State<Seat> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.isBooked
-          ? null
-          : () {
-              setState(() {
-                selected = !selected;
-              });
-              widget.onSelect(selected);
-            },
+      onTap: widget.isBooked ? null : () {
+        setState(() {
+          selected = !selected;
+        });
+        widget.onSelect(selected);
+      },
       child: Container(
         margin: const EdgeInsets.all(8),
         width: 50,
@@ -147,7 +137,7 @@ class _SeatState extends State<Seat> {
                   ),
                   BoxShadow(
                     color: Colors.grey.shade400,
-                    offset: const Offset(4, 4),
+                    offset: Offset(4, 4),
                     blurRadius: 5,
                     spreadRadius: 2,
                   )

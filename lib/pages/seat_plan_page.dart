@@ -36,13 +36,12 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
 
   _getData() async {
     final resList = await Provider.of<AppDataProvider>(context, listen: false)
-        .getReservationsByScheduleAndDepartureDate(
-            schedule.scheduleId!, departureDate);
+        .getReservationsByScheduleAndDepartureDate(schedule.scheduleId!, departureDate);
     setState(() {
       isDataLoading = false;
     });
     List<String> seats = [];
-    for (final res in resList) {
+    for(final res in resList) {
       totalSeatBooked += res.totalSeatBooked;
       seats.add((res.seatNumbers));
     }
@@ -111,39 +110,32 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                 style: const TextStyle(fontSize: 16),
               ),
             ),
-            if (!isDataLoading)
-              Expanded(
-                child: SingleChildScrollView(
-                  child: SeatPlanView(
-                    onSeatSelected: (value, seat) {
-                      if (value) {
-                        selectedSeats.add(seat);
-                      } else {
-                        selectedSeats.remove(seat);
-                      }
-                      selectedSeatStringNotifier.value =
-                          selectedSeats.join(',');
-                    },
-                    totalSeatBooked: totalSeatBooked,
-                    bookedSeatNumbers: bookedSeatNumbers,
-                    totalSeat: schedule.bus.totalSeat,
-                    isBusinessClass: schedule.bus.busType == busTypeACBusiness,
-                  ),
+            if(!isDataLoading) Expanded(
+              child: SingleChildScrollView(
+                child: SeatPlanView(
+                  onSeatSelected: (value, seat) {
+                    if(value) {
+                      selectedSeats.add(seat);
+                    } else {
+                      selectedSeats.remove(seat);
+                    }
+                    selectedSeatStringNotifier.value = selectedSeats.join(',');
+                  },
+                  totalSeatBooked: totalSeatBooked,
+                  bookedSeatNumbers: bookedSeatNumbers,
+                  totalSeat: schedule.bus.totalSeat,
+                  isBusinessClass: schedule.bus.busType == busTypeACBusiness,
                 ),
               ),
+            ),
             OutlinedButton(
               onPressed: () {
-                if (selectedSeats.isEmpty) {
+                if(selectedSeats.isEmpty) {
                   showMsg(context, 'Please select your seat first');
                   return;
                 }
                 Navigator.pushNamed(context, routeNameBookingConfirmationPage,
-                    arguments: [
-                      departureDate,
-                      schedule,
-                      selectedSeatStringNotifier.value,
-                      selectedSeats.length
-                    ]);
+                    arguments: [departureDate, schedule, selectedSeatStringNotifier.value, selectedSeats.length]);
               },
               child: const Text('NEXT'),
             )

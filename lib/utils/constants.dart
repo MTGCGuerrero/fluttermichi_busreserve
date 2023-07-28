@@ -22,6 +22,7 @@ const String routeNameAddSchedulePage = 'add_schedule';
 const String routeNameScheduleListPage = 'schedule_list';
 const String routeNameReservationPage = 'reservation';
 
+
 const cities = [
   'Dhaka',
   'Chittagong',
@@ -33,27 +34,10 @@ const cities = [
 ];
 
 enum ResponseStatus {
-  SAVED,
-  FAILED,
-  UNAUTHORIZED,
-  AUTHORIZED,
-  EXPIRED,
-  NONE,
+  SAVED, FAILED, UNAUTHORIZED, AUTHORIZED, EXPIRED, NONE,
 }
 
 const busTypes = [busTypeACBusiness, busTypeACEconomy, busTypeNonAc];
 
-const seatLabelList = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L'
-];
+const seatLabelList = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+
